@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Led",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "io.github.mosser.arduinoml.ens.samples.Led",
+            "args": "",
+            "projectName": "kernel-jvm"
+        }
+    ]
+}
