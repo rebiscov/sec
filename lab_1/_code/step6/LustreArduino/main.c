@@ -15,20 +15,24 @@ _boolean _get_reset_value(){
 }
 
 void cpt_O_led_on(void* cdata, _boolean _V) {
-  if (_V == 1) 
+  if (_V == 1)
     digitalWrite(led, HIGH);
   else
     digitalWrite(led, LOW);
 }
 
+void cpt_O_counter(void* cdata, _integer counter) {
+  displayDigit((int) counter);
+}
+
 
 int main(){
-  
+
   /* Lustre Context (state data structure) allocation for node "cpt"*/
   struct cpt_ctx* ctx = cpt_new_ctx(NULL);
-  setup(); 
-  
-  
+  setup();
+
+
   /* Main loop */
   while(1){
 
@@ -40,5 +44,5 @@ int main(){
     _delay_ms(1000);
   }
    return 1;
-   
+
 }
