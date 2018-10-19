@@ -12,7 +12,6 @@ public class App implements NamedElement, Visitable {
 	private List<State> states = new ArrayList<State>();
 	private List<State> initial;
 	private List<Sensor> sensors;
-	private List<SensorTransition> sTransitions;
 
 	@Override
 	public String getName() {
@@ -48,13 +47,6 @@ public class App implements NamedElement, Visitable {
 		this.states = states;
 	}
 
-	public void setSensorTransitions(List<SensorTransition> sTransitions) {
-		this.sTransitions = sTransitions;
-	}
-
-	public List<SensorTransition> getSensorTransitions() {
-		return sTransitions;
-	}
 
 	public List<State> getInitial() {
 		return initial;
