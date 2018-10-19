@@ -10,7 +10,10 @@ public class State implements NamedElement, Visitable {
 
 	private String name;
 	private List<Action> actions = new ArrayList<Action>();
-	private SensorTransition next;
+	private State next;
+	public  boolean haveSensor = false;
+	private State nextIfHigh;
+	private Sensor sensor;
 
 	@Override public String getName() {
 		return name;
@@ -26,12 +29,29 @@ public class State implements NamedElement, Visitable {
 		this.actions = actions;
 	}
 
-	public SensorTransition getNext() {
+	public void setSensor(Sensor sensor){
+		this.sensor = sensor;
+		haveSensor = true;
+	}
+
+	public Sensor getSensor() {
+		return sensor;
+	}
+
+	public State getNext() {
 		return next;
 	}
-	public void setNext(SensorTransition next) {
+	public void setNext(State next) {
 		this.next = next;
 	}
+
+	public void setNextIfHigh(State state){ 
+        this.nextIfHigh = state; 
+    }
+    public State getNextIfHigh(){ 
+        return this.nextIfHigh; 
+    }
+	
 
 	@Override
 	public void accept(Visitor visitor) {
