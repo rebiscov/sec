@@ -75,7 +75,7 @@ public class ToC extends Visitor<StringBuffer> {
 		}
 		c("  _delay_ms(1000);");
         if (state.hasSensor) {
-            c(String.format(" if (digitalRead(%d) == HIGH)", state.sensor.getPin());
+            c(String.format(" if (digitalRead(%d) == HIGH)", state.getSensor().getPin()));
 		    c(String.format("     state_%s();", state.getNextIfHigh().getName()));
 		                  c(" else");
 		    c(String.format("     state_%s();", state.getNext().getName()));

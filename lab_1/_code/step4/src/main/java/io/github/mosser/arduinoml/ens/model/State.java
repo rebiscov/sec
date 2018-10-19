@@ -31,7 +31,7 @@ public class State implements NamedElement, Visitable {
 
 	public void setSensor(Sensor sensor){
 		this.sensor = sensor;
-		haveSensor = true;
+		hasSensor = true;
 	}
 
 	public Sensor getSensor() {
