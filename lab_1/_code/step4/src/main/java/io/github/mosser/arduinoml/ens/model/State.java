@@ -11,7 +11,7 @@ public class State implements NamedElement, Visitable {
 	private String name;
 	private List<Action> actions = new ArrayList<Action>();
 	private State next;
-	public  boolean haveSensor = false;
+	public  boolean hasSensor = false;
 	private State nextIfHigh;
 	private Sensor sensor;
 
@@ -48,6 +48,7 @@ public class State implements NamedElement, Visitable {
 	public void setNextIfHigh(State state){ 
         this.nextIfHigh = state; 
     }
+
     public State getNextIfHigh(){ 
         return this.nextIfHigh; 
     }

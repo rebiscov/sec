@@ -45,11 +45,6 @@ public class ToC extends Visitor<StringBuffer> {
 			state.accept(this);
 		}
 		
-		for(SensorTransition sTransition: app.getSensorTransitions()){
-			h(String.format("void sTrans_%s();", sTransition.getName()));
-			sTransition.accept(this);
-		}
-
 		if (app.getInitial() != null) {
 			c("int main(void) {");
 			c("  setup();");
@@ -72,16 +67,6 @@ public class ToC extends Visitor<StringBuffer> {
 		c(String.format("  pinMode(%d, INPUT); // %s [Sensor]", sensor.getPin(), sensor.getName()));
 	}
 
-
-	public void visit(SensorTransition sTransition) {
-		c(String.format("void sTrans_%s(){ ", sTransition.getName()));
-		c(String.format("  if (digitalRead(%d) == HIGH)", sTransition.getSensor().getPin()));
-		c(String.format("    state_%s();", sTransition.getNextIfHigh().getName())); 
-		c("  else");
-		c(String.format("    state_%s();", sTransition.getNextIfLow().getName())); 
-		c("}");
-	}
-
 	@Override
 	public void visit(State state) {
 		c(String.format("void state_%s() {",state.getName()));
@@ -89,7 +74,14 @@ public class ToC extends Visitor<StringBuffer> {
 			action.accept(this);
 		}
 		c("  _delay_ms(1000);");
-		c(String.format("  sTrans_%s();", state.getNext().getName()));
+        if (state.hasSensor) {
+            c(String.format(" if (digitalRead(%d) == HIGH)", state.sensor.getPin());
+		    c(String.format("     state_%s();", state.getNextIfHigh().getName()));
+		                  c(" else");
+		    c(String.format("     state_%s();", state.getNext().getName()));
+        } else {
+		c(String.format("  state_%s();", state.getNext().getName()));
+        }
 		c("}");
 	}
 
