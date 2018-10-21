@@ -53,22 +53,22 @@ public class ToC extends Visitor<StringBuffer> {
 							c(String.format("    state_%s_%s();", s1.getNext().getName(), s2.getNext().getName()));
 						}
 						else {
-							c(String.format("    if ((digitalRead(%d) == HIGH)", s2.getSensor().getPin()));
-							c(String.format("      state_%s_%s()", s1.getNextIfHigh().getName(), s2.getNextIfHigh().getName()));
+							c(String.format("    if (digitalRead(%d) == HIGH)", s2.getSensor().getPin()));
+							c(String.format("      state_%s_%s();", s1.getNextIfHigh().getName(), s2.getNextIfHigh().getName()));
 							c("    else");
-							c(String.format("      state_%s_%s()", s1.getNextIfHigh().getName(), s2.getNext().getName()));
+							c(String.format("      state_%s_%s();", s1.getNextIfHigh().getName(), s2.getNext().getName()));
 							c("  else");
-							c(String.format("    if ((digitalRead(%d) == HIGH)", s2.getSensor().getPin()));
-							c(String.format("      state_%s_%s()", s1.getNext().getName(), s2.getNextIfHigh().getName()));
+							c(String.format("    if (digitalRead(%d) == HIGH)", s2.getSensor().getPin()));
+							c(String.format("      state_%s_%s();", s1.getNext().getName(), s2.getNextIfHigh().getName()));
 							c("    else");
-							c(String.format("      state_%s_%s()", s1.getNext().getName(), s2.getNext().getName()));
+							c(String.format("      state_%s_%s();", s1.getNext().getName(), s2.getNext().getName()));
 						}
 					 }
 					 else {
-						c(String.format("  if ((digitalRead(%d) == HIGH)", s2.getSensor().getPin()));
-						c(String.format("    state_%s_%s()", s1.getNext().getName(), s2.getNextIfHigh().getName()));
+						c(String.format("  if (digitalRead(%d) == HIGH)", s2.getSensor().getPin()));
+						c(String.format("    state_%s_%s();", s1.getNext().getName(), s2.getNextIfHigh().getName()));
 						c("  else");
-						c(String.format("    state_%s_%s()", s1.getNext().getName(), s2.getNext().getName()));
+						c(String.format("    state_%s_%s();", s1.getNext().getName(), s2.getNext().getName()));
 					 }
 				}
 				else {
