@@ -9,6 +9,12 @@ public class Sensor implements NamedElement, Visitable {
     private int pin;
     private String name;
 
+    public Sensor(String name, int pin) {
+        this.pin = pin;
+        this.name = name;
+    }
+    public Sensor() {}
+
     public int getPin() {
         return pin;
     }

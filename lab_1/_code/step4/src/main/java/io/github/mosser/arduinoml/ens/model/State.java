@@ -10,10 +10,21 @@ public class State implements NamedElement, Visitable {
 
 	private String name;
 	private List<Action> actions = new ArrayList<Action>();
-	private State next;
+	private State next, nextIfHigh;
 	public  boolean hasSensor = false;
-	private State nextIfHigh;
 	private Sensor sensor;
+
+	public State(String name) {
+		this.name = name;
+	}
+
+	public State(String name, Sensor sensor) {
+		this.name = name;
+		this.sensor = sensor;
+		this.hasSensor = true;
+	}
+
+	public State() {}
 
 	@Override public String getName() {
 		return name;
