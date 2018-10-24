@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class ModelBuilder extends ArduinoMLBaseListener {
 
@@ -56,6 +58,7 @@ public class ModelBuilder extends ArduinoMLBaseListener {
         this.transitions.forEach( (from, nextId) -> from.setNext(this.states.get(nextId)) );
         this.transitionsIfHigh.forEach( (from, nextId) -> from.setNextIfHigh(this.states.get(nextId)) );
         this.built = true;
+        this.theApp.setStates(new ArrayList(states.values()));
         this.theApp.setInitial(initialStates);
     }
 
@@ -64,6 +67,19 @@ public class ModelBuilder extends ArduinoMLBaseListener {
         Actuator act = new Actuator(ctx.location().id.getText(), Integer.parseInt(ctx.location().port.getText()));
         this.theApp.getOutputElements().add(act);
         this.outputElements.put(act.getName(), act); // Symbol table for actuators
+    }
+
+    @Override
+    public void enterSevenSeg(ArduinoMLParser.SevenSegContext ctx) {
+        int[] pins = new int[7];
+
+        for (int i = 0; i < 7; i++)
+            pins[i] = Integer.parseInt(ctx.PORT_NUMBER(i).getText());
+
+        SevenSeg ss = new SevenSeg(ctx.id.getText(), pins);
+
+        this.theApp.getOutputElements().add(ss);
+        this.outputElements.put(ss.getName(), ss); // Symbol table for actuators
     }
 
     @Override
@@ -96,10 +112,19 @@ public class ModelBuilder extends ArduinoMLBaseListener {
 
     @Override
     public void enterActuatorAction(ArduinoMLParser.ActuatorActionContext ctx) {
-        ActuatorAction action = new ActuatorAction((Actuator) outputElements.get(ctx.receiver.getText()), SIGNAL.valueOf(ctx.value.getText()));
+        Actuator act = (Actuator) outputElements.get(ctx.receiver.getText());
+        ActuatorAction action = new ActuatorAction(act, SIGNAL.valueOf(ctx.value.getText()));
+        act.addState(currentState);
         currentState.getActions().add(action);
     }
 
+    @Override
+    public void enterSevenSegAction(ArduinoMLParser.SevenSegActionContext ctx) {
+        SevenSeg ss = (SevenSeg) outputElements.get(ctx.receiver.getText());
+        SevenSegAction action = new SevenSegAction(ss, SEVENSEGNUMBER.valueOf(ctx.value.getText()));
+        ss.addState(currentState);
+        currentState.getActions().add(action);
+    }
 
     @Override
     public void enterNext(ArduinoMLParser.NextContext ctx) {

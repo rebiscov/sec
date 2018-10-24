@@ -1,18 +1,42 @@
 application led {
-	
+
     sensor button: 10
-
     actuator led: 13
+    sevenSeg ss: [1, 2, 3, 4, 5, 6, 7]
 
-    -> off button {
+    -> on button {
+        led is HIGH
+        goto on
+        ifHighGoto off
+    }
+    off button {
         led is LOW
         goto off
-	ifHighGoto on
+        ifHighGoto on
     }
 
-    on  button {
-        led is HIGH 
-        goto on 
-	ifHighGoto off
+    -> zero button {
+       ss is ZERO
+       goto one
+       ifHighGoto zero
     }
+
+    one button {
+       ss is ONE
+       goto two
+       ifHighGoto zero
+    }
+
+    two button {
+       ss is TWO
+       goto three
+       ifHighGoto zero
+    }
+
+    three button {
+       ss is THREE
+       goto zero
+       ifHighGoto zero
+    }
+
 }

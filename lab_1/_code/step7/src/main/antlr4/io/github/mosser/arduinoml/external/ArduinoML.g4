@@ -6,16 +6,17 @@ grammar ArduinoML;
  ******************/
 
 
-app         :   'application' name=IDENTIFIER '{' sensor*  actuator+ state+ '}';
+app         :   'application' name=IDENTIFIER '{' sensor*  (actuator | sevenSeg)+ state+ '}';
 
 sensor      :   'sensor'   location ;
 actuator    :   'actuator' location ;
+sevenSeg    :   'sevenSeg' id=IDENTIFIER ':' '[' (PORT_NUMBER ',')* PORT_NUMBER ']' ;
 location    :   id=IDENTIFIER ':' port=PORT_NUMBER;
 
 state       :   initial? name=IDENTIFIER sensorName=IDENTIFIER? '{'  action+ next nextIfHigh?'}';
 action      :   actuatorAction | sevenSegAction;
 actuatorAction :   receiver=IDENTIFIER 'is' value=SIGNAL;
-sevenSegAction :   receiver=IDENTIFIER '[' map*  ']';
+sevenSegAction :   receiver=IDENTIFIER 'is' value=SEVENSEGNUM;
 map         :   key=INT '=>' nextState=INT ','?;
 next :   'goto' target=IDENTIFIER ;
 nextIfHigh  :   'ifHighGoto' target=IDENTIFIER ;
@@ -25,10 +26,10 @@ initial     :   '->';
  ** Lexer rules **
  *****************/
 
-INT             :   [0-9];
 PORT_NUMBER     :   [1-9] | '10' | '11' | '12' | '13';
 IDENTIFIER      :   LOWERCASE (LOWERCASE|UPPERCASE)+;
 SIGNAL          :   'HIGH' | 'LOW';
+SEVENSEGNUM     :   'ZERO' | 'ONE' | 'TWO' | 'THREE' | 'FOUR' | 'FIVE' | 'SIX' | 'SEVEN' | 'EIGHT' | 'NINE';
 
 /*************
  ** Helpers **
