@@ -6,6 +6,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +29,12 @@ public class ModelBuilder extends ArduinoMLBaseListener {
      ** Symbol tables **
      *******************/
 
-    private Map<String, Actuator> actuators = new HashMap<>();
+    private Map<String, OutputElement> outputElements = new HashMap<>();
     private Map<String, State>    states  = new HashMap<>();
     private Map<State, String>  transitions  = new HashMap<>();
+    private Map<State, String>  transitionsIfHigh  = new HashMap<>();
+    private Map<String, Sensor> sensors = new HashMap<>();
+    private List<State> initialStates = new ArrayList<>();
 
     private State currentState = null;
 
@@ -49,23 +54,37 @@ public class ModelBuilder extends ArduinoMLBaseListener {
     public void exitApp(ArduinoMLParser.AppContext ctx) {
         // Resolving transitions
         this.transitions.forEach( (from, nextId) -> from.setNext(this.states.get(nextId)) );
+        this.transitionsIfHigh.forEach( (from, nextId) -> from.setNextIfHigh(this.states.get(nextId)) );
         this.built = true;
+        this.theApp.setInitial(initialStates);
     }
 
     @Override
     public void enterActuator(ArduinoMLParser.ActuatorContext ctx) {
-        Actuator act = new Actuator();
-        act.setName(ctx.location().id.getText());
-        act.setPin(Integer.parseInt(ctx.location().port.getText()));
-        this.theApp.getActuators().add(act);
-        this.actuators.put(act.getName(), act); // Symbol table for actuators
+        Actuator act = new Actuator(ctx.location().id.getText(), Integer.parseInt(ctx.location().port.getText()));
+        this.theApp.getOutputElements().add(act);
+        this.outputElements.put(act.getName(), act); // Symbol table for actuators
     }
+
+    @Override
+    public void enterSensor(ArduinoMLParser.SensorContext ctx) {
+        Sensor sens = new Sensor(ctx.location().id.getText(), Integer.parseInt(ctx.location().port.getText()));
+        this.theApp.getSensors().add(sens);
+        this.sensors.put(sens.getName(), sens);
+    }
+
 
     @Override
     public void enterState(ArduinoMLParser.StateContext ctx) {
         State local = new State();
         local.setName(ctx.name.getText());
         this.currentState = local;
+
+        try {
+            local.setSensor(sensors.get(ctx.sensorName.getText()));
+        } catch (Exception e) {}
+
+
         this.states.put(local.getName(), local); // Symbol table for states
     }
 
@@ -76,10 +95,8 @@ public class ModelBuilder extends ArduinoMLBaseListener {
     }
 
     @Override
-    public void enterAction(ArduinoMLParser.ActionContext ctx) {
-        Action action = new Action();
-        action.setActuator(actuators.get(ctx.receiver.getText()));
-        action.setValue(SIGNAL.valueOf(ctx.value.getText()));
+    public void enterActuatorAction(ArduinoMLParser.ActuatorActionContext ctx) {
+        ActuatorAction action = new ActuatorAction((Actuator) outputElements.get(ctx.receiver.getText()), SIGNAL.valueOf(ctx.value.getText()));
         currentState.getActions().add(action);
     }
 
@@ -89,10 +106,14 @@ public class ModelBuilder extends ArduinoMLBaseListener {
         this.transitions.put(this.currentState, ctx.target.getText());
     }
 
+    @Override
+    public void enterNextIfHigh(ArduinoMLParser.NextIfHighContext ctx) {
+        this.transitionsIfHigh.put(this.currentState, ctx.target.getText());
+    }
 
     @Override
     public void enterInitial(ArduinoMLParser.InitialContext ctx) {
-        this.theApp.setInitial(this.currentState);
+        this.initialStates.add(this.currentState);
     }
 
 }

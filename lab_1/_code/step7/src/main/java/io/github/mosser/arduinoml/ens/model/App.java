@@ -8,9 +8,16 @@ import java.util.List;
 public class App implements NamedElement, Visitable {
 
 	private String name;
-	private List<Actuator> actuators = new ArrayList<Actuator>();
+	private List<OutputElement> outputElements = new ArrayList<OutputElement>();
 	private List<State> states = new ArrayList<State>();
-	private State initial;
+	private List<State> initial = new ArrayList<>();;
+	private List<Sensor> sensors = new ArrayList<>();;
+
+	public App(String name) {
+		this.name = name;
+	}
+
+	public App() {}
 
 	@Override
 	public String getName() {
@@ -22,12 +29,20 @@ public class App implements NamedElement, Visitable {
 		this.name = name;
 	}
 
-	public List<Actuator> getActuators() {
-		return actuators;
+	public List<OutputElement> getOutputElements() {
+		return outputElements;
 	}
 
-	public void setBricks(List<Actuator> actuators) {
-		this.actuators = actuators;
+	public void setBricks(List<OutputElement> outputElements) {
+		this.outputElements = outputElements;
+	}
+
+	public void setSensors(List<Sensor> sensors) {
+		this.sensors = sensors;
+	}
+
+	public List<Sensor> getSensors() {
+		return sensors;
 	}
 
 	public List<State> getStates() {
@@ -38,11 +53,12 @@ public class App implements NamedElement, Visitable {
 		this.states = states;
 	}
 
-	public State getInitial() {
+
+	public List<State> getInitial() {
 		return initial;
 	}
 
-	public void setInitial(State initial) {
+	public void setInitial(List<State> initial) {
 		this.initial = initial;
 	}
 

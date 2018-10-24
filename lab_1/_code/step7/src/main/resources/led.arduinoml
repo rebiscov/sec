@@ -1,14 +1,18 @@
 application led {
+	
+    sensor button: 10
 
     actuator led: 13
 
-    -> off {
+    -> off button {
         led is LOW
-        goto on
+        goto off
+	ifHighGoto on
     }
 
-    on {
-        led is HIGH
-        goto off
+    on  button {
+        led is HIGH 
+        goto on 
+	ifHighGoto off
     }
 }
