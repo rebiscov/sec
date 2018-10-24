@@ -24,8 +24,8 @@ public class Led {
 		Sensor button = new Sensor("button", 10);
 
 		// Declaring states
-		State on = new State("on", button);
-		State off = new State("off", button);
+		State on = new State("on");
+		State off = new State("off");
 
 		// Creating actions
 		Action switchTheLightOn = new ActuatorAction(led, SIGNAL.HIGH);
@@ -36,10 +36,9 @@ public class Led {
 		off.setActions(Arrays.asList(switchTheLightOff));
 
 		// Binding transitions to states
-		on.setNext(on);
-		on.setNextIfHigh(off);
-		off.setNext(off);
-		off.setNextIfHigh(on);
+		on.setNext(off);
+		off.setNext(on);
+		//off.setNextIfHigh(on);
 
 		led.addState(on);
 		led.addState(off);

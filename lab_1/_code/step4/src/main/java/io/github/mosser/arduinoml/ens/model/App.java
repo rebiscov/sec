@@ -10,8 +10,8 @@ public class App implements NamedElement, Visitable {
 	private String name;
 	private List<OutputElement> outputElements = new ArrayList<OutputElement>();
 	private List<State> states = new ArrayList<State>();
-	private List<State> initial;
-	private List<Sensor> sensors;
+	private List<State> initial = new ArrayList<State>();
+	private List<Sensor> sensors = new ArrayList<Sensor>();
 
 	public App(String name) {
 		this.name = name;

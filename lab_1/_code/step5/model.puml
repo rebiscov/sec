@@ -1,0 +1,35 @@
+@startuml
+
+abstract class NamedElement {
+ + String name
+}
+
+class App
+
+class Actuator {
+  + int pin
+}
+
+class State
+
+class Action {
+  + SIGNAL value
+}
+
+enum SIGNAL {
+    HIGH
+    LOW
+}
+
+
+NamedElement <|-- App
+NamedElement <|-- Actuator
+NamedElement <|-- State
+
+App *--> "1..*\nstates" State
+App *--> "1..*\nactuators" Actuator
+State --> "next" State
+State *--> "1..*\nactions" Action
+Action --> "1 target" Actuator
+
+@enduml
