@@ -1,6 +1,85 @@
 # Bibliography Corpus for SEC 2018
 
 
+### Paper Presentation Expectations
+
+
+Prepare a 10 minutes presentation (hard limit), that addresses the following point for your selected paper:
+
+  - Context of the research;
+  - Research challenge addressed by the authors;
+  - Results obtained;
+  - Threats to validity
+  - Your analysis of the obtained result.
+
+Your critical analysis of the contribution (_e.g._, threats to validity and analysis) worths 50% of the final mark.
+
+### Chosen Papers:
+
+  - *How Many of All Bugs Do We Find?A Study of Static Bug Detectors* (Mathieu Vavrille)
+  - *Energy efficiency across programming languages: how do energy, time, and memory relate?* (Simon)
+
+
+
+## Int. Conf. on Programming Languages, Design and Implementation (PLDI, A*)
+
+### 2018 Edition
+
+   - Jeehoon Kang, Yoonseung Kim, Youngju Song, Juneyoung Lee,
+     Sanghoon Park, Mark Dongyeon Shin, Yonghyun Kim, Sungkeun Cho,
+     Joonwon Choi, Chung-Kil Hur, Kwangkeun Yi: _Crellvm: Verified
+     Credible Compilation for LLVM_
+   - Justin Pombrio, Shriram Krishnamurthi: _Inferring Type Rules for Syntactic Sugar_
+   - Simon Moll, Sebastian Hack: _Partial Control-Flow Linearization_
+   
+### 2017 Edition
+		
+   - David Menendez, Santosh Nagarakatte : _ALIVE-INFER: Data-Driven Precondition Inference for Peephole Optimizations in LLVM_
+   - Timothy Bourke, Lelio Brun, Pierre-Evariste Dagand, Xavier Leroy,
+Marc Pouzet, Lionel Rieg: _A Formally Verified Compiler for Lustre_
+   - Juneyoung Lee, Yoonseung Kim, Youngju Song, Chung-Kil Hur, Sanjoy Das,
+David Majnemer, John Regehr, Nuno P. Lopes: _Taming Undefined Behavior in LLVM_
+ 
+
+##  SPLASH / OOPSLA (Programming Languages, A)
+
+### 2018
+
+   - Yunming Zhang, Mengjiao Yang, Riyadh Baghdadi, Shoaib Kamil, Julian
+Shun, Saman Amarasinghe: _GraphIt - A High-Performance Graph DSL_
+   - Fengmin Zhu, Fei He: _Conflict Resolution for Structured Merge
+     via Version Space Algebra_
+	 
+### 2017	 
+
+   - Xiaokang Qiu, Armando Solar-Lezama:    _Natural Synthesis of Provably-Correct Data-Structure Manipulations_
+   - Fredrik Kjolstad, Shoaib Kamil, Stephen Chou, David Lugato, Saman
+     Amarasinghe: _ The Tensor Algebra Compiler_
+   
+
+## Static Analysis Symposium (SAS, A)
+
+### 2018 
+
+   - Kedar Namjoshi and Zvonimir Pavlinovic: _The Impact of Program Transformations on Static Program Analysis_
+
+### 2017 
+
+   - Divyesh Unadkat, Supratik Chakraborty and Ashutosh Gupta: _Verifying Array Manipulating Programs by Tiling_
+
+## Code Generation and Optimisation (A)
+
+### 2018
+
+   - Synthesizing an Instruction Selection Rule Library from Semantic Specifications
+Sebastian Buchwald, Andreas Fried (Karlsruhe Institute of Technology), Sebastian Hack (Saarland University)
+
+
+### 2017
+
+
+TODO
+
 ## Int. Conf. on Software Engineering (ICSE, A*)
 
 ### 2018 Edition
@@ -60,7 +139,7 @@
   - Raja Ben Abdessalem, Annibale Panichella, Shiva Nejati, Lionel C. Briand, Thomas Stifter: _Testing autonomous cars for feature interaction failures using many-objective search_. 143-154.
   - Mukelabai Mukelabai, Damir Nesic, Salome Maro, Thorsten Berger, Jan-Philipp Steghöfer: _Tackling combinatorial explosion: a study of industrial needs and practices for analyzing highly configurable systems_. 155-166.
   - Dongjie He, Lian Li, Lei Wang, Hengjie Zheng, Guangwei Li, Jingling Xue: _Understanding and detecting evolution-induced compatibility issues in Android apps_. 167-177.
-  - Andrew Habib, Michael Pradel: _How many of all bugs do we find? a study of static bug detectors_. 317-328.
+  - *Andrew Habib, Michael Pradel: _How many of all bugs do we find? a study of static bug detectors_. 317-328.*
   - Hashim Sharif, Muhammad Abubakar, Ashish Gehani, Fareed Zaffar: _TRIMMER: application specialization for code debloating_. 329-339.
   - Dominik Helm, Florian Kübler, Michael Eichberg, Michael Reif, Mira Mezini: _A unified lattice model and framework for purity analyses_. 340-350
 
