@@ -41,6 +41,35 @@ A: C'est assez facile de rajouter une nouvelle feature sans toucher au reste. Il
 Q: How to extend the code so that to support new features, e.g., memory-less tasks, state-full tasks, different frequencies?
 A: Il n'y a rien à faire pour les memory-less tasks, pour créer des state-full tasks, il faut ajouter des registres, et pour gérer plusieurs fréquences il faut faire un calcul de pgcd
 
+## Step 4
+
+Q: What are the pros/cons associated to the meta-modeling approach? What is the cost of defining a meta-model? What is difficult in this activity?
+A: Définir un méta-modèle permet ensuite de définir simplement un nouveau langage à utiliser avec notre arduino. Il faut en revanche bien penser le méta modèle dès le départ pour qu'il soit facilement utilisable et pratique.
+
+Q: From the user point of view, what does it change? Is the approach usable for large apps?
+A: Il devient beaucoup plus facile de créer un programme en utilisant ce méta modèle. Il est beaucoup plus simple de créer de larges applications de manière beaucoup plus lisible. De plus en écrivant une lib comme nous l'avons fait il devient beaucoup plus facile d'utiliser de nouveaux composants.
+
+Q: Consider the LED app and the counter one as two separate models. Is it possible to automate the creation of the final app based on these two models?
+A: La solution à ce problème est de faire un produit de deux automates en considérant que les deux modèles de base sont des automates finis.
+
+Q: What about the readability of the generated code compared to the previous one “by hand”? Its debugging capabilities ? Its extensiveness?
+A: Le code généré n'est en revanche pas très lisible. Il utilise beaucoup de fonctions. Il faut suivre l'exécution à la main pour le débuggage ce qui peut être fastidieux quand le nombre de fonctions croit beaucoup. De plus ce code va conduire à stack overflow.
+
+Q: Explain the interest of modeling in terms of genericity, functional property verification.
+A: L'intérêt vient du fait que chaque fonction peut être vérifiée de la même manière.
+
+## Step 5
+
+Q: Compare how this modeling solution and the previous one match the domain, especially regarding expressiveness and scalability.
+A: Cette solution match beaucoup mieux le domaine. Elle est plus expressive. En effet, on peut définir des actions selon l'état dans lequel est le 7seg par exemple, ce qui était impossible précedemment.
+
+Q: What is the cost (e.g., modeling, code generation) of a new feature for the developer?
+A: Il est assez facile pour le développeur de rajouter une nouvelle feature. Il n'y a rien a changé dans la génération de code, simplement une classe ou deux à rajouter dans la lib qui pourra ensuite être utilisée pour écrire un programme.
+
+Q: What about scalability of the modeling paradigm itself?
+A: 
+
+
 ## Step 6
 
 Q: Who is the intended user for such a language?
