@@ -1,3 +1,15 @@
+# Rapport
+
+## Step 6
+
+Le travail sur la step6 était relativement court. Le code dans `glue_arduino.c` avait déjà été réaliser dans les steps précédentes. Il a fallu ajouter dans `main.c` une fonction pour gérer le seven segments (cette fonction prend un entier dans [0,...,9] et change l'état du seven segments). Enfin, nous avons programmé un programme Lustre très simple qui se charge simplement de de changer l'état de la LED et de mettre le compteur à zéro si il y a pression, et sinon de simplement incrémenter le compteur.
+
+## Step 7
+
+Pour la step7, nous avons peu changé le langage proposé. Nous avons ajouté la possibilité de lier un state à un sensor (dans notre cas un bouton). Cela permet (comme dans la step4) de donner un état suivant alternatif au cas où le bouton serait activé. Nous avons ajouté le support pour le seven segments. Le but était aussi de définir plusieurs états à la fois (pour le seven segments) afin de ne pas avoir à définir les 10 états à la main, ce que nous n'avons pu réaliser par manque de temps.
+
+# Réponses aux questions
+
 ## Step 1
 
 Q: What can we say about readability of this code? What are the skills required to write such a program?
@@ -36,7 +48,7 @@ Q: Does introducing a convention solve the readability issue?
 A: Le code est plus lisible car il est plus modulaire. Une partie des fonctions définissent des FLAG, d'autres les utilisent. La répartition des tâches est plus claire.
 
 Q: How to extend an app with a new feature? Does the approach prevent one to perform invasive changes in the existing behavior to introduce a new one?
-A: C'est assez facile de rajouter une nouvelle feature sans toucher au reste. Il suffit d'ajouter un flag qui sera modifié par un boutton et lu par notre nouveau composant.
+A: C'est assez facile de rajouter une nouvelle feature sans toucher au reste. Il suffit d'ajouter un flag qui sera modifié par un bouton et lu par notre nouveau composant.
 
 Q: How to extend the code so that to support new features, e.g., memory-less tasks, state-full tasks, different frequencies?
 A: Il n'y a rien à faire pour les memory-less tasks, pour créer des state-full tasks, il faut ajouter des registres, et pour gérer plusieurs fréquences il faut faire un calcul de pgcd
@@ -56,7 +68,7 @@ Q: What is the cost of adding a new hardware target?
 A: Il est facile d'ajouter un nouveau composant (c'est le cas du seven segments du moins...) mais il y a un travail à faire pour chaque composant
 
 Q: The Lustre language comes with its own ecosystem (test, formal verification), what are the generic properties we can imagine to prove from our domain?
-A: On peut prouver que la LED va changer d'état après pression du bouton, on peut prouver que si le seven segments est à l'état i, à l'étape suivante, il sera à l'étape (i+1) mod 10 si le boutton n'a pas été activé etc...
+A: On peut prouver que la LED va changer d'état après pression du bouton, on peut prouver que si le seven segments est à l'état i, à l'étape suivante, il sera à l'étape (i+1) mod 10 si le bouton n'a pas été activé etc...
 
 ## Step 7
 
@@ -74,3 +86,6 @@ A: La grammaire contient une partie du meta-modèle (un état contient une actio
 
 Q: How to validate that the defined syntax is the right one?
 A: Il faut prouver que le langage instancie correctement la modèle, puis que le modèle est correct
+
+## Choix des papiers
+Vincent RÉBISCOUL: Julien Lange, Nicholas Ng, Bernardo Toninho, Nobuko Yoshida: A static verification framework for message passing in Go using behavioural types. 1137-1148.
