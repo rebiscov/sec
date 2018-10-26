@@ -17,7 +17,6 @@ state       :   initial? name=IDENTIFIER sensorName=IDENTIFIER? '{'  action+ nex
 action      :   actuatorAction | sevenSegAction;
 actuatorAction :   receiver=IDENTIFIER 'is' value=SIGNAL;
 sevenSegAction :   receiver=IDENTIFIER 'is' value=SEVENSEGNUM;
-map         :   key=INT '=>' nextState=INT ','?;
 next :   'goto' target=IDENTIFIER ;
 nextIfHigh  :   'ifHighGoto' target=IDENTIFIER ;
 initial     :   '->';
