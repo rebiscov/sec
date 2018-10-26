@@ -1,5 +1,13 @@
 # Rapport
 
+## Step 4
+
+Dans la step 4 nous définissons un automate fini pour chaque composant et nous en faisons le produit. Le problème vient que la lisibilité du code généré en est impactée. De plus il est difficile de prendre en compte certains type de transition comme "si le 7seg passe à 5, alors allumer la led". Nous avons créer une sorte de lib pour prendre en compte les différents composants. Créer de nouveau composant n'est donc pas très difficile. On regrette toutefois qu'il n'y ait pas une classe de laquelle pourraient plus facilement hériter nos composants pour éviter les conversions de type comme on le fait actuellement.
+
+## Step 5
+
+Cette fois on utilise un modèle réactif comme base à notre meta model. Ce modèle est beaucoup plus lisible que le précédent et beaucoup plus expressif. On utilise des régistres que l'on change à notre guise. On peut donc facilement résoudre le problème précédent de cette manière en jouant avec les flags ("si le 7seg passe à 5, alors allumer la led"). Certains problèmes sont toutefois toujours d'actulaité comme la création de nouveaux composants. On aurait également pu pour faciliter l'utilisation du seven-seg en créant un autre type de registre qui peut prendre plusieurs valeurs numériques, plutôt que simplement des booléens.
+
 ## Step 6
 
 Le travail sur la step6 était relativement court. Le code dans `glue_arduino.c` avait déjà été réaliser dans les steps précédentes. Il a fallu ajouter dans `main.c` une fonction pour gérer le seven segments (cette fonction prend un entier dans [0,...,9] et change l'état du seven segments). Enfin, nous avons programmé un programme Lustre très simple qui se charge simplement de de changer l'état de la LED et de mettre le compteur à zéro si il y a pression, et sinon de simplement incrémenter le compteur.
@@ -118,3 +126,5 @@ A: Il faut prouver que le langage instancie correctement la modèle, puis que le
 
 ## Choix des papiers
 Vincent RÉBISCOUL: Julien Lange, Nicholas Ng, Bernardo Toninho, Nobuko Yoshida: A static verification framework for message passing in Go using behavioural types. 1137-1148.
+
+Guillaume CLUZEl: Diego Vaquero-Melchor, Javier Palomares, Esther Guerra, Juan de Lara: Active Domain-Specific Languages: Making Every Mobile User a Modeller. 75-82.
