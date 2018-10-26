@@ -1,61 +1,62 @@
 package io.github.mosser.arduinoml.ens.model;
 
-
 import io.github.mosser.arduinoml.ens.generator.Visitable;
 import io.github.mosser.arduinoml.ens.generator.Visitor;
+import io.github.mosser.arduinoml.ens.model.SIGNAL;
 
-public class SetActuator implements Action, Visitable {
+public class SetActuator extends Action {
 
-    private SIGNAL value;
+    private SIGNAL[] value;
     private Actuator target;
-    private Register guard;
 
-    public SetActuator() {}
-
-    public SetActuator(Actuator target) {
+    public SetActuator(SIGNAL[] value, Actuator target) {
+        this.value = value;
         this.target = target;
     }
 
-    public SetActuator(Actuator target, SIGNAL value) {
-        this.target = target;
+    public SetActuator(SIGNAL[] value, Actuator target, Register guard) {
         this.value = value;
-    }
-
-    public SetActuator(Actuator target, SIGNAL value, Register guard) {
         this.target = target;
-        this.value = value;
         this.guard = guard;
     }
 
-    public void setValue(SIGNAL value) {
+    public SetActuator(SIGNAL[] value, Actuator target, Register guard, Boolean onGuardValue) {
         this.value = value;
+        this.target = target;
+        this.guard = guard;
+        this.onGuardValue = onGuardValue;
     }
 
-    public SIGNAL getValue() {
-        return value;
-    }
-
+    /**
+     * @return the target
+     */
     public Actuator getTarget() {
         return target;
     }
 
+    /**
+     * @param target the target to set
+     */
     public void setTarget(Actuator target) {
         this.target = target;
     }
 
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
+    /**
+     * @return the value
+     */
+    public SIGNAL[] getValue() {
+        return value;
     }
 
-    @Override
-    public Register getGuard() {
-		return guard;
-	}
+    /**
+     * @param value the value to set
+     */
+    public void setValue(SIGNAL[] value) {
+        this.value = value;
+    }
 
-    @Override
-	public void setGuard(Register guard) {
-		this.guard = guard;
-	}
-
+    @Override 
+    public void accept(Visitor visitor) { 
+        visitor.visit(this); 
+    }
 }

@@ -1,68 +1,64 @@
 package io.github.mosser.arduinoml.ens.model;
 
-import io.github.mosser.arduinoml.ens.generator.*;
+import io.github.mosser.arduinoml.ens.generator.Visitable;
+import io.github.mosser.arduinoml.ens.generator.Visitor;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class App implements Visitable {
+public class App implements Visitable{
 
-	private String name;
-	private List<Actuator> actuators = new ArrayList<Actuator>();
-	private List<Producer> producers = new ArrayList<Producer>();
-	private List<Consumer> consumers = new ArrayList<Consumer>();
-	private List<SevenSeg> sevenSegs = new ArrayList<SevenSeg>();
+    private ArrayList<Producer> producers = new ArrayList<>();
+    private ArrayList<Consumer> consumers = new ArrayList<>();
+    private ArrayList<Actuator> actuators = new ArrayList<>();
+    private ArrayList<Sensor> sensors = new ArrayList<>();
+    private String name;
 
-	public App(String name) {
-		this.name = name;
-	}
+    public App(String name) {
+        this.name = name;
+    }
 
-	public App() {}
+    public ArrayList<Producer> getProducers() { 
+        return producers;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setConsumers(ArrayList<Consumer> consumers) {
+        this.consumers = consumers;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setActuators(List<Actuator> actuators) {
-		this.actuators = actuators;
-	}
+    public ArrayList<Consumer> getConsumers() {
+        return consumers;
+    }
 
-	public List<Actuator> getActuators() {
-		return actuators;
-	}
+    public void setActuators(ArrayList<Actuator> actuators) {
+        this.actuators = actuators;
+    }
 
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
+    public ArrayList<Actuator> getActuators() {
+        return actuators;
+    }
 
-	public List<Consumer> getConsumers() {
-		return consumers;
-	}
+    public void setProducers(ArrayList<Producer> producers) {
+        this.producers = producers;
+    }
 
-	public void setConsumers(List<Consumer> consumers) {
-		this.consumers = consumers;
-	}
+    public String getName() {
+        return name;
+    }
+    
+    @Override 
+    public void accept(Visitor visitor) {
+         visitor.visit(this);
+    }
 
-	public List<Producer> getProducers() {
-		return producers;
-	}
+    public ArrayList<Sensor> getSensors() {
+        return sensors;
+    }
 
-	public void setProducers(List<Producer> producers) {
-		this.producers = producers;
-	}
-
-	public void setSevenSegs(List<SevenSeg> sevenSegs) {
-		this.sevenSegs = sevenSegs;
-	}
-
-	public List<SevenSeg> getSevenSegs() {
-		return sevenSegs;
-	}
-
-
+    public void setSensors(ArrayList<Sensor> sensors) {
+        this.sensors = sensors;
+    }
 }

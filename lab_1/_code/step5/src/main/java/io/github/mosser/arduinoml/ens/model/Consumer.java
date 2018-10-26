@@ -1,62 +1,67 @@
 package io.github.mosser.arduinoml.ens.model;
 
-
 import io.github.mosser.arduinoml.ens.generator.Visitable;
 import io.github.mosser.arduinoml.ens.generator.Visitor;
+import io.github.mosser.arduinoml.ens.model.Action;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Consumer implements Visitable {
 
     private String name;
-    private List<Register> memory;
-    private List<Action> behavior;
+    private ArrayList<Action> behavior = new ArrayList<Action>();
+    private ArrayList<Register> memory = new ArrayList<Register>();
 
     public Consumer(String name) {
         this.name = name;
     }
 
-    public Consumer() {}
-
-    public Consumer(String name, List<Register> memory) {
-        this.name = name;
-        this.memory = memory;
-    }
-
-    public Consumer(String name, List<Register> memory, List<Action> behavior) {
-        this.name = name;
-        this.memory = memory;
+    /**
+     * @param behavior the behavior to set
+     */
+    public void setBehavior(ArrayList<Action> behavior) {
         this.behavior = behavior;
     }
 
-    public List<Register> getMemory() {
-        return memory;
+    /**
+     * @return the behavior
+     */
+    public ArrayList<Action> getBehavior() {
+        return behavior;
     }
 
-    public void setMemory(List<Register> memory) {
+    /**
+     * @param memory the memory to set
+     */
+    public void setMemory(ArrayList<Register> memory) {
         this.memory = memory;
     }
 
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
+    /**
+     * @return the memory
+     */
+    public ArrayList<Register> getMemory() {
+        return memory;
     }
 
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * @param name the name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setBehavior(List<Action> behavior) {
-        this.behavior = behavior;
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
-    public List<Action> getBehavior() {
-        return behavior;
-    }
 
+
+    @Override 
+    public void accept(Visitor visitor) { 
+        visitor.visit(this); 
+    }
 }

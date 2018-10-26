@@ -1,42 +1,42 @@
 package io.github.mosser.arduinoml.ens.model;
 
 
-import io.github.mosser.arduinoml.ens.generator.Visitable;
-import io.github.mosser.arduinoml.ens.generator.Visitor;
-
-public class Register implements Visitable {
+public class Register {
 
     private String name;
     private Boolean value;
 
-    public Register() {}
-
-    public Register(String name) {
-        this.name = name;
-    }
-
-    public Register(String name, Boolean value) {
+    public Register(String name, boolean value) {
         this.name = name;
         this.value = value;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setValue(boolean value) {
-        this.value = value;
-    }
-
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the value
+     */
     public Boolean getValue() {
         return value;
     }
-    
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue(Boolean value) {
+        this.value = value;
     }
+
 }

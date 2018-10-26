@@ -4,12 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.mosser.ens</groupId>
-  <artifactId>kernel-jvm</artifactId>
+  <artifactId>reactive</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>Java implementation of ArduinoML abstract syntax</name>
-  <url>http://maven.apache.org</url>
+  <name>Java implementation of ArduinoML Reactive abstract syntax</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +33,7 @@
                     <goals><goal>java</goal></goals>
                 </execution></executions>
                 <configuration>
-                    <mainClass>io.github.mosser.arduinoml.ens.samples.Led</mainClass>
+                    <mainClass>io.github.mosser.arduinoml.ens.samples.Example</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -2,30 +2,26 @@ package io.github.mosser.arduinoml.ens.generator;
 
 import io.github.mosser.arduinoml.ens.model.*;
 
-public abstract class Visitor<T> {
 
-	public abstract void visit(App app);
+public abstract class Visitor {
+
 	public abstract void visit(Actuator actuator);
-	public abstract void visit(SetActuator setActuator);
-	public abstract void visit(SevenSeg sevenseg);
-	public abstract void visit(Register register);
-	public abstract void visit(Producer producer);
+	public abstract void visit(App app);
 	public abstract void visit(Consumer consumer);
-	public abstract void visit(SetRegister setRegister);
-	public abstract void visit(SetSevenSeg setSevenSeg);
+    public abstract void visit(Producer producer);
+    public abstract void visit(Sensor sensor);
+    public abstract void visit(SetActuator setActuator);
+    public abstract void visit(SetRegister setRegistry);
+
 
 	/***********************
 	 ** Helper mechanisms **
 	 ***********************/
 
-	T code;
-	T headers;
+	StringBuffer code;
 
-	public T getCode() {
+	public StringBuffer getCode() {
 		return code;
-	}
-	public T getHeaders() {
-		return headers;
 	}
 
 }
