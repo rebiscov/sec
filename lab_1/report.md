@@ -39,4 +39,38 @@ Q: How to extend an app with a new feature? Does the approach prevent one to per
 A: C'est assez facile de rajouter une nouvelle feature sans toucher au reste. Il suffit d'ajouter un flag qui sera modifié par un boutton et lu par notre nouveau composant.
 
 Q: How to extend the code so that to support new features, e.g., memory-less tasks, state-full tasks, different frequencies?
-A: 
+A: Il n'y a rien à faire pour les memory-less tasks, pour créer des state-full tasks, il faut ajouter des registres, et pour gérer plusieurs fréquences il faut faire un calcul de pgcd
+
+## Step 6
+
+Q: Who is the intended user for such a language?
+A: Les utilisateurs désirant une forte abstraction vis à vis du hardware
+
+Q: What is the cost of reusing this existing DSL for the developer in terms of code?
+A: Le développeur doit implanter chaque nouveau composants pour conserver une abstraction forte
+
+Q: What is the cost of adding a new task of our domain?
+A: Si le composant existe déjà, le coût est minime, néanmoins si l'utilisateur veut utiliser un composant nouveau (un panneau LED par exemple), le développeur doit d'abord programmer l'interface avec le code Lustre
+
+Q: What is the cost of adding a new hardware target?
+A: Il est facile d'ajouter un nouveau composant (c'est le cas du seven segments du moins...) mais il y a un travail à faire pour chaque composant
+
+Q: The Lustre language comes with its own ecosystem (test, formal verification), what are the generic properties we can imagine to prove from our domain?
+A: On peut prouver que la LED va changer d'état après pression du bouton, on peut prouver que si le seven segments est à l'état i, à l'étape suivante, il sera à l'étape (i+1) mod 10 si le boutton n'a pas été activé etc...
+
+## Step 7
+
+Q: Who is the intended user ? What about the tooling associated to the language?
+A: Un utilisateur désirant une forte abstraction (comme dans la step 4) mais ayant toujours des connaissances en automates et des connaissances de base en hardware (ici pour l'arduino)
+
+Q: More generally, what is the cost of such an approach?
+A: Les coûts sont les mêmes que pour la step4, sauf que si le modèle de la step4 est changé, il en revient au développeur de modifier le langage de la step7
+
+Q: To what extent is the language fragile to the introduction of new features?
+A: Il faut modifier l'implantation du modèle de la step4 et le langage
+
+Q: What is the relationship between the meta-model and the grammar?
+A: La grammaire contient une partie du meta-modèle (un état contient une action par exemple)
+
+Q: How to validate that the defined syntax is the right one?
+A: Il faut prouver que le langage instancie correctement la modèle, puis que le modèle est correct
