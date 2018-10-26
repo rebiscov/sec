@@ -31,9 +31,6 @@ public class LedAction {
 		return action;
 	}
 
-	/**
-	 * @param action the action to set
-	 */
 	public void fromAction(Action action) {
 		this.action = action;
 	}
