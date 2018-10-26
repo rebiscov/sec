@@ -98,7 +98,7 @@ public class ToC extends Visitor<StringBuffer> {
 		c("");
 		c("void setup(){");
 		// Initialisation des actuators
-		for(OutputElement a: app.getOutputElements()){
+		for(Actuator a: app.getActuators()){
 			a.accept(this);
 		}
 		// Initialisation des Sensors
@@ -107,7 +107,7 @@ public class ToC extends Visitor<StringBuffer> {
 		}
 		c("}\n");
 
-		if (app.getOutputElements().size() == 1) {
+		if (app.getActuators().size() == 1) {
 			for(State state: app.getStates()){
 				h(String.format("void state_%s();", state.getName()));
 				state.accept(this);
@@ -115,7 +115,7 @@ public class ToC extends Visitor<StringBuffer> {
 			
 		}
 		else {
-			pdtAutom(app.getOutputElements().get(0).getListOfStates(), app.getOutputElements().get(1).getListOfStates());
+			pdtAutom(app.getActuators().get(0).getListOfStates(), app.getActuators().get(1).getListOfStates());
 		}
 		
 		if (app.getInitial() != null) {
@@ -129,13 +129,8 @@ public class ToC extends Visitor<StringBuffer> {
 
 	@Override
 	public void visit(Actuator actuator) {
-	 	c(String.format("  pinMode(%d, OUTPUT); // %s [Actuator]", actuator.getPin(), actuator.getName()));
-	}
-
-	@Override
-	public void visit(SevenSeg sevenseg) {
-		for(int i: sevenseg.getPins()) {
-			c(String.format("  pinMode(%d, OUTPUT); // [7-seg]", i));
+		for (int i: actuator.getPin()) {
+			 c(String.format("  pinMode(%d, OUTPUT); // %s [Actuator]", i, actuator.getName()));
 		}
 	}
 	
@@ -164,43 +159,10 @@ public class ToC extends Visitor<StringBuffer> {
 
 
 	@Override
-	public void visit(ActuatorAction action) {
-		c(String.format("  digitalWrite(%d,%s);",action.getActuator().getPin(),action.getValue()));
-	}
-
-	@Override
-	public void visit(SevenSegAction action) {
-		List<Integer> pinOn = new ArrayList<Integer>();
-
-		switch (action.getValue()) {
-			case ZERO: pinOn = Arrays.asList(0,1,2,3,4,5); break;
-			case ONE: pinOn = Arrays.asList(1,2); break;
-			case TWO: pinOn = Arrays.asList(0,1,3,4,6); break;
-			case THREE: pinOn = Arrays.asList(0,1,2,3,6); break;
-			case FOUR: pinOn = Arrays.asList(1,2,5,6); break;
-			case FIVE: pinOn = Arrays.asList(0,2,3,5,6); break;
-			case SIX: pinOn = Arrays.asList(0,2,3,4,5,6); break;
-			case SEVEN: pinOn = Arrays.asList(0,1,2); break;
-			case EIGHT: pinOn = Arrays.asList(0,1,2,3,4,5,6); break;
-			case NINE: pinOn = Arrays.asList(0,1,2,3,5,6); break;
-		}
-
-		for(int i = 0; i < 7; i++) {
-			if (pinOn.contains(i)) 
-				c(String.format("  digitalWrite(%d,LOW);", action.getSevenSeg().getPins()[i]));
-			else
-				c(String.format("  digitalWrite(%d,HIGH);", action.getSevenSeg().getPins()[i]));
-		}
-	}
-
-	@Override
 	public void visit(Action action) {
-		//nothing
-	}
-
-	@Override
-	public void visit(OutputElement outputElement) {
-		// Do nothing
+		for(int i = 0; i < action.getValue().length; i++) {
+			c(String.format("  digitalWrite(%d,%s);",action.getActuator().getPin()[i],action.getValue()[i]));
+		}
 	}
 
 }

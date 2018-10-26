@@ -34,7 +34,7 @@
                     <goals><goal>java</goal></goals>
                 </execution></executions>
                 <configuration>
-                    <mainClass>io.github.mosser.arduinoml.ens.samples.Led</mainClass>
+                    <mainClass>io.github.mosser.arduinoml.ens.samples.Example</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -8,7 +8,7 @@ import java.util.List;
 public class App implements NamedElement, Visitable {
 
 	private String name;
-	private List<OutputElement> outputElements = new ArrayList<OutputElement>();
+	private List<Actuator> outputElements = new ArrayList<Actuator>();
 	private List<State> states = new ArrayList<State>();
 	private List<State> initial = new ArrayList<State>();
 	private List<Sensor> sensors = new ArrayList<Sensor>();
@@ -29,11 +29,11 @@ public class App implements NamedElement, Visitable {
 		this.name = name;
 	}
 
-	public List<OutputElement> getOutputElements() {
+	public List<Actuator> getActuators() {
 		return outputElements;
 	}
 
-	public void setBricks(List<OutputElement> outputElements) {
+	public void setBricks(List<Actuator> outputElements) {
 		this.outputElements = outputElements;
 	}
 

@@ -2,6 +2,7 @@ package io.github.mosser.arduinoml.ens.samples;
 
 import io.github.mosser.arduinoml.ens.model.*;
 import io.github.mosser.arduinoml.ens.generator.*;
+import io.github.mosser.arduinoml.ens.lib.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,15 +10,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Led {
+public class Example {
 
 	public static void main(String[] args) {
 
 		// Declaring LED
-		Actuator led = new Actuator("LED", 13);
+		Led led = new Led("LED", 13);
 
 		// Declaring 7-seg
-		int[] pins = {1,2,3,4,5,6,7};
+		Integer[] pins = {1,2,3,4,5,6,7};
 		SevenSeg sevenSeg = new SevenSeg("7SEG", pins);
 
 		// Declaring button
@@ -28,12 +29,12 @@ public class Led {
 		State off = new State("off");
 
 		// Creating actions
-		Action switchTheLightOn = new ActuatorAction(led, SIGNAL.HIGH);
-		Action switchTheLightOff = new ActuatorAction(led, SIGNAL.LOW);
+		LedAction switchTheLightOn = new LedAction(led, SIGNAL.HIGH);
+		LedAction switchTheLightOff = new LedAction(led, SIGNAL.LOW);
 
 		// Binding actions to states
-		on.setActions(Arrays.asList(switchTheLightOn));
-		off.setActions(Arrays.asList(switchTheLightOff));
+		on.setActions(Arrays.asList(switchTheLightOn.toAction()));
+		off.setActions(Arrays.asList(switchTheLightOff.toAction()));
 
 		// Binding transitions to states
 		on.setNext(off);
@@ -45,14 +46,14 @@ public class Led {
 
 
 		State[] number = new State[11];
-		for (int i = 0; i < 10; i++) {
+		for (Integer i = 0; i < 10; i++) {
 			number[i] = new State(String.format("nb%d", i), button);
 		}
-		for (int i = 0; i < 10; i++) {
+		for (Integer i = 0; i < 10; i++) {
 			number[i].setNext(number[(i + 1) % 10]);
 			number[i].setNextIfHigh(number[0]);
-			Action action = new SevenSegAction(sevenSeg, i);
-			number[i].setActions(Arrays.asList(action));
+			SevenSegAction action = new SevenSegAction(sevenSeg, i);
+			number[i].setActions(Arrays.asList(action.toAction()));
 			sevenSeg.addState(number[i]);
 		}
 
@@ -64,7 +65,7 @@ public class Led {
 
 		// Building the App
 		App theSwitch = new App("Arduino");
-		theSwitch.setBricks(Arrays.asList(led, sevenSeg));
+		theSwitch.setBricks(Arrays.asList(led.toActuator(), sevenSeg.toActuator()));
 		theSwitch.setStates(state); 
 		theSwitch.setSensors(Arrays.asList(button));
 		theSwitch.setInitial(Arrays.asList(on, number[0])); 
