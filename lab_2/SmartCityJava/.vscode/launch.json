@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "ens.smartcity.Main",
+            "args": "",
+            "projectName": "kernel-jvm"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Led",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "io.github.mosser.arduinoml.ens.samples.Led",
+            "args": "",
+            "projectName": "kernel-jvm"
+        }
+    ]
+}

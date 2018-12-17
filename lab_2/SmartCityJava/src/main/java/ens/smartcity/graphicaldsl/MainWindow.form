@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ens.smartcity.graphicaldsl.MainWindow">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="765" height="549"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="75007" class="javax.swing.JLabel">
+        <constraints border-constraint="North"/>
+        <properties>
+          <font name="Liberation Sans" size="28"/>
+          <text value="SmartCity DSL"/>
+        </properties>
+      </component>
+      <grid id="b6d87" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <toolbar id="e7dde">
+            <constraints border-constraint="North"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="c4cd5" class="javax.swing.JButton" binding="openCSVFileButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Open CSV File"/>
+                </properties>
+              </component>
+              <component id="44ea6" class="javax.swing.JButton" binding="openJSONFileButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Open JSON File"/>
+                </properties>
+              </component>
+              <hspacer id="f1581">
+                <constraints/>
+              </hspacer>
+              <component id="8d7d5" class="javax.swing.JButton" binding="addTailoringButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Add Tailoring"/>
+                </properties>
+              </component>
+              <hspacer id="7b792">
+                <constraints/>
+              </hspacer>
+              <component id="6a289" class="javax.swing.JButton" binding="sampleDataButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Sample Data"/>
+                </properties>
+              </component>
+              <component id="96d30" class="javax.swing.JSeparator">
+                <constraints/>
+                <properties/>
+              </component>
+              <component id="c88df" class="javax.swing.JButton" binding="button1" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Button"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+          <toolbar id="dea97">
+            <constraints border-constraint="South"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="ef20e" class="javax.swing.JButton" binding="sendDataButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Send Data"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+          <grid id="54a01" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints border-constraint="West"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <scrollpane id="9f091">
+                <constraints border-constraint="East"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="7dfd6" class="javax.swing.JList" binding="listData">
+                    <constraints/>
+                    <properties>
+                      <selectionMode value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="957a3" class="javax.swing.JLabel">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="List of Data:"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="8bc5c" class="javax.swing.JTable" binding="table1" default-binding="true">
+            <constraints border-constraint="Center"/>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

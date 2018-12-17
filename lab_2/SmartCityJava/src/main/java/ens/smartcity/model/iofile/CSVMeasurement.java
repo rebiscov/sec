@@ -1,0 +1,73 @@
+package ens.smartcity.model.iofile;
+
+
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.net.URL;
+
+import ens.smartcity.model.sensor.*;
+import ens.smartcity.model.data.*;
+
+import com.opencsv.CSVReader;
+
+/**
+ * 
+ */
+public class CSVMeasurement extends ReplayMeasurement {
+
+
+    public CSVMeasurement(String filePath) {
+        super(filePath);
+    }
+
+    public CSVMeasurement(URL url) { super(url); }
+
+
+    /**
+     * @param t : number of column for t
+     * @param v : number of column for v
+     * @param s : number of column for s
+     */
+    public Data OpenFile(Integer t, Integer v, Integer s, Boolean firstLineDifferent) {
+
+        Data d = new Data(FileName, "Data from " + FileName);
+
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(this.FilePath));
+            CSVReader csvReader = new CSVReader(reader);
+            
+            String[] lines;
+
+            if(firstLineDifferent){
+                csvReader.readNext();
+            }
+
+            
+            lines = csvReader.readNext();
+            Sensor sensor = new Sensor(-1, lines[s], "");
+
+            
+
+            do  {
+                
+                Mesurement mesurement = new Mesurement(lines[v], new Date(lines[t]), sensor);
+
+                d.getMesurements().add(mesurement);
+                
+                
+
+            } while ((lines = csvReader.readNext()) != null);
+            csvReader.close();
+
+        }
+        catch (Exception e) {
+            System.err.println(e.toString());
+        }
+
+
+        return d;
+    }
+
+}
