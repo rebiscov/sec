@@ -17,7 +17,7 @@ public class Polynomial {
 
     if (x.compareTo(points.get(0)) < 0 || x.compareTo(points.get(points.size() - 1)) >= 0) return v;
 
-    for (i = 0; i < points.size() && x.compareTo(points.get(i)) > 0; i++) ;
+    for (i = 1; i < points.size() && x.compareTo(points.get(i)) > 0; i++) ;
 
     ArrayList<Double> pi = p.get(i - 1);
 
