@@ -12,12 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-enum MesurementType {
-  STRING,
-  LONG,
-  DOUBLE
-}
-
 public class MarkovChain extends ModelingSensor {
   protected Date beginTime, endTime;
   protected Integer interval;
