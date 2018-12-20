@@ -62,4 +62,7 @@ public class Data {
         }
     }
 
+    public String getName() {
+        return Name;
+    }
 }

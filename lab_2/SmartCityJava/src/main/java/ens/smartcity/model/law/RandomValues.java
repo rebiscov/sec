@@ -17,7 +17,7 @@ public class RandomValues extends ModelingSensor {
     private Integer sup;
 
 
-    public RandomValues(Date beginTime, Date endTime, Integer interval, Sensor owner, Integer inf, Integer sup) {
+    public RandomValues(Date beginTime, Date endTime, Integer interval, Integer inf, Integer sup) {
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.interval = interval;

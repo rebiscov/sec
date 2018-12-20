@@ -70,7 +70,7 @@ public class Mesurement {
 
         String unixTime = Time.toString() + "000000";
 
-        String urlParameters = owner.getName() + " value=" + Value + " " + unixTime;
+        String urlParameters = owner.getName() + " value=" + Value.toString() + " " + unixTime;
 
         HttpPost.executePost("http://localhost:8086/write?db=sec", urlParameters);
     }
