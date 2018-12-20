@@ -23,15 +23,16 @@ public class Interpolation extends ModelingSensor {
     this.endTime = endTime;
     this.interval = interval;
 
-    ArrayList<ArrayList<Double>> p = new ArrayList<>();
+    ArrayList<ArrayList<Double>> p = new ArrayList<ArrayList<Double>>();
 
     for (int i = 0; i < y.size() - 1; i++) {
-      ArrayList<Double> pi = p.get(i);
+      ArrayList<Double> pi = new ArrayList<Double>();
       Double slope = y.get(i + 1) - y.get(i);
       Double intercept = y.get(i) - x.get(i) * slope;
 
       pi.add(intercept);
       pi.add(slope);
+      p.add(pi);
     }
 
     f = new Polynomial(p, x);
