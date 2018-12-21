@@ -1,6 +1,7 @@
 package ens.smartcity.model.sensor;
 
 
+import ens.smartcity.model.law.Law;
 import ens.smartcity.model.law.ModelingSensor;
 
 /**
@@ -13,7 +14,7 @@ public class Sensor {
     private Integer id;
     private String name;
     private String description;
-    private ModelingSensor law = null;
+    private Law law = null;
     private Location location = null;
     /**
      * Create new Sensor
@@ -25,11 +26,11 @@ public class Sensor {
     }
 
 
-    public void setLaw(ModelingSensor law) {
+    public void setLaw(Law law) {
         this.law = law;
     }
 
-    public ModelingSensor getLaw() {
+    public Law getLaw() {
         return law;
     }
 
@@ -54,11 +55,4 @@ public class Sensor {
         return name;
     }
 
-    public void generateValue() {
-        /*if (law == null) {
-            throw new Exception("Aucune loi pour ce bouton.");
-        }*/
-
-        law.generateValue(this);
-    }
 }

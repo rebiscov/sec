@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ens.smartcity.graphicaldsl.MainWindow">
   <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="765" height="549"/>
+      <xy x="20" y="20" width="1015" height="642"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -36,6 +36,12 @@
                   <text value="Open JSON File"/>
                 </properties>
               </component>
+              <component id="7e7e1" class="javax.swing.JButton" binding="newSensorButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="New Sensor"/>
+                </properties>
+              </component>
               <hspacer id="f1581">
                 <constraints/>
               </hspacer>
@@ -51,17 +57,17 @@
               <component id="6a289" class="javax.swing.JButton" binding="sampleDataButton" default-binding="true">
                 <constraints/>
                 <properties>
-                  <text value="Sample Data"/>
+                  <text value="Simulation"/>
                 </properties>
               </component>
               <component id="96d30" class="javax.swing.JSeparator">
                 <constraints/>
                 <properties/>
               </component>
-              <component id="c88df" class="javax.swing.JButton" binding="button1" default-binding="true">
+              <component id="c88df" class="javax.swing.JButton" binding="realTimeSimulationButton" default-binding="true">
                 <constraints/>
                 <properties>
-                  <text value="Button"/>
+                  <text value="Real Time Simulation"/>
                 </properties>
               </component>
             </children>

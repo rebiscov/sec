@@ -12,6 +12,7 @@ import ens.smartcity.model.sensor.*;
 import ens.smartcity.model.data.*;
 
 import com.opencsv.CSVReader;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * 
@@ -33,7 +34,7 @@ public class CSVMeasurement extends ReplayMeasurement {
      */
     public Data OpenFile(Integer t, Integer v, Integer s, Boolean firstLineDifferent) {
 
-        Data d = new Data(FileName, "Data from " + FileName);
+        Data d = new Data(FileName + System.nanoTime(), "Data from " + FileName);
 
         try {
             Reader reader = Files.newBufferedReader(Paths.get(this.FilePath));

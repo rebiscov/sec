@@ -85,7 +85,6 @@ public class AddTailoring extends JDialog {
 
             for (Data d : parent.getDataList()) {
                 if (d.getName() == comboBoxData1.getSelectedItem().toString()) {
-                    System.out.println("ok");
                     d.AddTailoring(new Offset(Double.valueOf(textFieldValue.getText())));
                 }
             }
