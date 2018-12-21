@@ -10,39 +10,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-public class RandomValues extends ModelingSensor {
+public class RandomValues implements Law {
 
 
     private Integer inf;
     private Integer sup;
 
+    private Random randomizer;
 
-    public RandomValues(Date beginTime, Date endTime, Integer interval, Integer inf, Integer sup) {
-        this.beginTime = beginTime;
-        this.endTime = endTime;
-        this.interval = interval;
+    public RandomValues(Integer inf, Integer sup) {
         this.inf = inf;
         this.sup = sup;
+        randomizer = new Random();
     }
 
-    public List<Mesurement> generateValue(Sensor owner) {
 
 
-        ArrayList<Mesurement> measurements = new ArrayList<>();
-        Date currentTime, nextTime = beginTime;
-        Random randomizer = new Random();
-
-        do {
-
-            currentTime = nextTime;
-
-            Double value = randomizer.nextDouble() * (sup - inf) + inf;
-            measurements.add(new Mesurement(value, currentTime, owner));
-
-            nextTime = DateUtils.addSeconds(currentTime, interval);
-
-        } while (nextTime.before(beginTime));
-
-        return measurements;
+    @Override
+    public Object evaluate(Double d) {
+        return randomizer.nextDouble() * (sup - inf) + inf;
     }
 }

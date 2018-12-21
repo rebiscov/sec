@@ -10,10 +10,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,12 +22,13 @@ public class MainWindow {
     private JPanel panel1;
     private JButton openCSVFileButton;
     private JButton openJSONFileButton;
-    private JButton button1;
+    private JButton realTimeSimulationButton;
     private JButton sendDataButton;
     private JTable tableData;
     private JButton addTailoringButton;
     private JList listData;
     private JButton sampleDataButton;
+    private JButton newSensorButton;
 
     private List<Sensor> sensorList = new ArrayList<>();
     private List<Data> dataList = new ArrayList<>();
@@ -82,7 +80,8 @@ public class MainWindow {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 SimulateLaw dialog = new SimulateLaw(this2);
-                dialog.afficher();
+                Data d = dialog.afficher();
+                listDataModel.addElement(d.getName());
             }
         });
         addTailoringButton.addActionListener(new ActionListener() {
@@ -91,6 +90,13 @@ public class MainWindow {
 
                 AddTailoring at = new AddTailoring(this2);
                 at.afficher();
+            }
+        });
+        newSensorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AddSensor ad = new AddSensor(this2);
+                ad.afficher();
             }
         });
     }
@@ -155,6 +161,9 @@ public class MainWindow {
         openJSONFileButton = new JButton();
         openJSONFileButton.setText("Open JSON File");
         toolBar1.add(openJSONFileButton);
+        newSensorButton = new JButton();
+        newSensorButton.setText("New Sensor");
+        toolBar1.add(newSensorButton);
         final Spacer spacer1 = new Spacer();
         toolBar1.add(spacer1);
         addTailoringButton = new JButton();
@@ -163,13 +172,13 @@ public class MainWindow {
         final Spacer spacer2 = new Spacer();
         toolBar1.add(spacer2);
         sampleDataButton = new JButton();
-        sampleDataButton.setText("Sample Data");
+        sampleDataButton.setText("Simulation");
         toolBar1.add(sampleDataButton);
         final JSeparator separator1 = new JSeparator();
         toolBar1.add(separator1);
-        button1 = new JButton();
-        button1.setText("Button");
-        toolBar1.add(button1);
+        realTimeSimulationButton = new JButton();
+        realTimeSimulationButton.setText("Real Time Simulation");
+        toolBar1.add(realTimeSimulationButton);
         final JToolBar toolBar2 = new JToolBar();
         panel2.add(toolBar2, BorderLayout.SOUTH);
         sendDataButton = new JButton();

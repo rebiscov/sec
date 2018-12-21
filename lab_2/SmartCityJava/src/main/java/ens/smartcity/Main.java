@@ -2,6 +2,7 @@ package ens.smartcity;
 
 import ens.smartcity.graphicaldsl.*;
 import javax.swing.*;
+import java.util.Date;
 
 public class Main {
 
@@ -13,6 +14,8 @@ public class Main {
     jFrame.setSize(450, 300);
     jFrame.setVisible(true);
 
-    System.out.println(System.currentTimeMillis());
+
+
+    System.out.println(new Date());
   }
 }

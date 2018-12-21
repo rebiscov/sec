@@ -3,29 +3,44 @@ package ens.smartcity.graphicaldsl;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import ens.smartcity.model.data.Data;
+import ens.smartcity.model.data.GenerateData;
 import ens.smartcity.model.sensor.Mesurement;
+import ens.smartcity.model.sensor.Sensor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SimulateLaw extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JComboBox comboBoxSensor;
-    private JComboBox comboBox2;
-    private JButton buttonNSensor;
+    private JFormattedTextField formattedTextFieldBegin;
+    private JFormattedTextField formattedTextFieldEnd;
+    private JTextField textFieldInterval;
 
-    private java.util.List<Mesurement> mesurements;
+    private Data dataGenerated;
 
     private MainWindow parent;
 
+
     public SimulateLaw(MainWindow parent) {
+
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         this.parent = parent;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+
+        for (Sensor s : parent.getSensorList()) {
+            comboBoxSensor.addItem(s.getName());
+        }
 
 
         buttonOK.addActionListener(new ActionListener() {
@@ -54,20 +69,32 @@ public class SimulateLaw extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        buttonNSensor.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                AddSensor as = new AddSensor(parent);
-                String nameSensor = as.afficher();
-                comboBoxSensor.addItem(nameSensor);
-                System.out.println(nameSensor);
-                comboBoxSensor.setSelectedItem(nameSensor);
-            }
-        });
     }
 
     private void onOK() {
-        // add your code here
+
+        // New data when "ok"
+        Sensor s = new Sensor(0, "", "");
+        for (Sensor s1 : parent.getSensorList()) {
+            if (s1.getName() == comboBoxSensor.getSelectedItem().toString()) {
+                s = s1;
+            }
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date bDate = new Date(), eDate = new Date();
+        try {
+            bDate = sdf.parse(formattedTextFieldBegin.getText());
+            eDate = sdf.parse(formattedTextFieldEnd.getText());
+        } catch (Exception e) {
+            System.err.println("Le champ doit être au format yyyy-MM-dd HH:mm:ss");
+        }
+
+
+        dataGenerated = GenerateData.generate(s, bDate, eDate, new Integer(textFieldInterval.getText()));
+
+        parent.getDataList().add(dataGenerated);
+
         dispose();
     }
 
@@ -76,10 +103,10 @@ public class SimulateLaw extends JDialog {
         dispose();
     }
 
-    public java.util.List<Mesurement> afficher() {
+    public Data afficher() {
         pack();
         setVisible(true);
-        return null;
+        return dataGenerated;
     }
 
     {
@@ -114,31 +141,30 @@ public class SimulateLaw extends JDialog {
         buttonCancel.setText("Cancel");
         panel2.add(buttonCancel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
-        panel3.setLayout(new GridLayoutManager(3, 3, new Insets(0, 0, 0, 0), -1, -1));
+        panel3.setLayout(new GridLayoutManager(5, 2, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
         label1.setText("Choose Sensor");
         panel3.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
-        panel3.add(spacer2, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel3.add(spacer2, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         comboBoxSensor = new JComboBox();
         panel3.add(comboBoxSensor, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
-        label2.setEnabled(true);
-        label2.setText("Law");
+        label2.setText("BeginDate");
         panel3.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        comboBox2 = new JComboBox();
-        comboBox2.setEditable(false);
-        comboBox2.setEnabled(true);
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        defaultComboBoxModel1.addElement("Markov Chain");
-        defaultComboBoxModel1.addElement("Random Values");
-        defaultComboBoxModel1.addElement("Random Set");
-        comboBox2.setModel(defaultComboBoxModel1);
-        panel3.add(comboBox2, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonNSensor = new JButton();
-        buttonNSensor.setText("+");
-        panel3.add(buttonNSensor, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        formattedTextFieldBegin = new JFormattedTextField();
+        panel3.add(formattedTextFieldBegin, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        formattedTextFieldEnd = new JFormattedTextField();
+        panel3.add(formattedTextFieldEnd, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JLabel label3 = new JLabel();
+        label3.setText("EndTime");
+        panel3.add(label3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textFieldInterval = new JTextField();
+        panel3.add(textFieldInterval, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JLabel label4 = new JLabel();
+        label4.setText("Interval (second)");
+        panel3.add(label4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
