@@ -72,7 +72,7 @@ public class Function extends ModelingSensor {
     Date pointer = new Date(beginTime.getTime());
 
     while (pointer.before(endTime)) {
-      Double v = f.evaluate(new Double((new Long(pointer.getTime())).doubleValue()));
+      Double v = f.evaluate(Double.valueOf((Long.valueOf(pointer.getTime())).doubleValue()));
       mesurements.add(new Mesurement(v, new Date(pointer.getTime()), this.s));
 
       pointer = new Date(pointer.getTime() + interval);
