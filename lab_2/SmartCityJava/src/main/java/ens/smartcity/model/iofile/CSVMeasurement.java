@@ -4,6 +4,7 @@ package ens.smartcity.model.iofile;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.net.URL;
 
@@ -51,8 +52,10 @@ public class CSVMeasurement extends ReplayMeasurement {
             
 
             do  {
-                
-                Mesurement mesurement = new Mesurement(lines[v], new Date(lines[t]), sensor);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                Mesurement mesurement = new Mesurement(lines[v], sdf.parse(lines[t]), sensor);
 
                 d.getMesurements().add(mesurement);
                 
@@ -63,7 +66,7 @@ public class CSVMeasurement extends ReplayMeasurement {
 
         }
         catch (Exception e) {
-            System.err.println(e.toString());
+            e.printStackTrace();
         }
 
 

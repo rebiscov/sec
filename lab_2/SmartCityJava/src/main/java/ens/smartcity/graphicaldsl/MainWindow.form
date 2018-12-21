@@ -11,7 +11,7 @@
         <constraints border-constraint="North"/>
         <properties>
           <font name="Liberation Sans" size="28"/>
-          <text value="SmartCity DSL"/>
+          <text value="SmartCity DSL (used by Paris, NY, London, Tokyo, ...)"/>
         </properties>
       </component>
       <grid id="b6d87" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -105,7 +105,7 @@
               </component>
             </children>
           </grid>
-          <component id="8bc5c" class="javax.swing.JTable" binding="table1" default-binding="true">
+          <component id="8bc5c" class="javax.swing.JTable" binding="tableData">
             <constraints border-constraint="Center"/>
             <properties/>
           </component>

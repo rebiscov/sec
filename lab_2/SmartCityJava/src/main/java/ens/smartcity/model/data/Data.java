@@ -56,10 +56,13 @@ public class Data {
      */
     public void AddTailoring(TailorMesurement tailoring) {
         for (Mesurement m : mesurements) {
-            if(m.getValue().getClass().getSimpleName() == "Integer" || m.getValue().getClass().getSimpleName() == "Double") {
-                m.setValue(tailoring.modifyValue((Double) m.getValue()));
+            try {
+                m.setValue(tailoring.modifyValue(Double.valueOf(m.getValue().toString())));
+            } catch (Exception e) {
+                System.err.println("pas le bon type");
             }
         }
+
     }
 
     public String getName() {

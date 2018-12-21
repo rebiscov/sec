@@ -32,11 +32,17 @@ public class AddTailoring extends JDialog {
     private MainWindow parent;
 
     public AddTailoring(MainWindow parent) {
+
         this.parent = parent;
         $$$setupUI$$$();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        for (Data d : parent.getDataList()) {
+            comboBoxData1.addItem(d.getName());
+            comboBoxData2.addItem(d.getName());
+        }
+
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -67,15 +73,19 @@ public class AddTailoring extends JDialog {
     }
 
     private void onOK() {
+
         if (tabbedPane1.getSelectedIndex() == 0 && textFieldInf.getText() != "" && textFieldSup.getText() != "") {
+
             for (Data d : parent.getDataList()) {
                 if (d.getName() == comboBoxData1.getSelectedItem().toString()) {
                     d.AddTailoring(new Noise(Double.valueOf(textFieldInf.getText()), Double.valueOf(textFieldSup.getText())));
                 }
             }
         } else if (tabbedPane1.getSelectedIndex() == 1 && textFieldValue.getText() != "") {
+
             for (Data d : parent.getDataList()) {
                 if (d.getName() == comboBoxData1.getSelectedItem().toString()) {
+                    System.out.println("ok");
                     d.AddTailoring(new Offset(Double.valueOf(textFieldValue.getText())));
                 }
             }
@@ -92,10 +102,7 @@ public class AddTailoring extends JDialog {
     public void afficher() {
         pack();
         setVisible(true);
-        /*for (Data d : parent.getDataList()) {
-            comboBoxData1.addItem(d.getName());
-            comboBoxData2.addItem(d.getName());
-        }*/
+
     }
 
     private void createUIComponents() {
