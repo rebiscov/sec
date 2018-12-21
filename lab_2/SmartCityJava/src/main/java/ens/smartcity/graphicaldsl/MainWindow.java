@@ -1,9 +1,18 @@
 package ens.smartcity.graphicaldsl;
 
+import com.intellij.uiDesigner.core.Spacer;
+import ens.smartcity.model.data.Data;
+import ens.smartcity.model.sensor.Mesurement;
+import ens.smartcity.model.sensor.Sensor;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainWindow {
     private JPanel panel1;
@@ -16,6 +25,9 @@ public class MainWindow {
     private JList listData;
     private JButton sampleDataButton;
 
+    private List<Sensor> sensorList = new ArrayList<>();
+    private List<Data> dataList = new ArrayList<>();
+
     public MainWindow() {
         listData.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -23,10 +35,49 @@ public class MainWindow {
 
             }
         });
+        openCSVFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                DefaultListModel listModel = new DefaultListModel();
+                listModel.addElement("A");
+                listModel.addElement("B");
+                listModel.addElement("C");
+
+                listData.setModel(listModel);
+            }
+        });
+        MainWindow this2 = this;
+        sampleDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                SimulateLaw dialog = new SimulateLaw(this2);
+                dialog.afficher();
+            }
+        });
+        addTailoringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                AddTailoring at = new AddTailoring(this2);
+                at.afficher();
+            }
+        });
     }
 
     public JPanel getPanel1() {
         return panel1;
+    }
+
+    public List<Sensor> getSensorList() {
+        return sensorList;
+    }
+
+    public List<Data> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<Data> dataList) {
+        this.dataList = dataList;
     }
 
     {
@@ -62,12 +113,12 @@ public class MainWindow {
         openJSONFileButton = new JButton();
         openJSONFileButton.setText("Open JSON File");
         toolBar1.add(openJSONFileButton);
-        final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
+        final Spacer spacer1 = new Spacer();
         toolBar1.add(spacer1);
         addTailoringButton = new JButton();
         addTailoringButton.setText("Add Tailoring");
         toolBar1.add(addTailoringButton);
-        final com.intellij.uiDesigner.core.Spacer spacer2 = new com.intellij.uiDesigner.core.Spacer();
+        final Spacer spacer2 = new Spacer();
         toolBar1.add(spacer2);
         sampleDataButton = new JButton();
         sampleDataButton.setText("Sample Data");
