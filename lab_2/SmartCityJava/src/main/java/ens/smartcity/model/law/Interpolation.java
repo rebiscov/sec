@@ -90,6 +90,15 @@ public class Interpolation extends ModelingSensor {
   public ArrayList<Mesurement> generateValue(Sensor s) {
     ArrayList<Mesurement> mesurements = new ArrayList<>();
 
+    Date pointer = new Date(beginTime.getTime());
+
+    while (pointer.before(endTime)) {
+      Double v = f.evaluate(Double.valueOf((Long.valueOf(pointer.getTime())).doubleValue()));
+      mesurements.add(new Mesurement(v, new Date(pointer.getTime()), this.s));
+
+      pointer = new Date(pointer.getTime() + interval);
+    }
+
     return mesurements;
   }
 }
