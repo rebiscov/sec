@@ -22,7 +22,7 @@ public class GenerateData {
 
             measurements.add(
                     new Mesurement(
-                            l.evaluate(new Double(currentTime.getMinutes() * 60 + currentTime.getHours())),
+                            l.evaluate(Double.valueOf((Long.valueOf(currentTime.getTime())).doubleValue())),
                             currentTime,
                             s)
             );
@@ -50,7 +50,7 @@ public class GenerateData {
             currentTime = nextTime;
 
             Mesurement msr = new Mesurement(
-                            l.evaluate(new Double(currentTime.getMinutes() * 60 + currentTime.getHours())),
+                            l.evaluate(Double.valueOf((Long.valueOf(currentTime.getTime())).doubleValue())),
                             currentTime,
                             s);
 

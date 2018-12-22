@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import ens.smartcity.Main;
 import ens.smartcity.model.data.Data;
 import ens.smartcity.model.iofile.CSVMeasurement;
+import ens.smartcity.model.law.Function;
 import ens.smartcity.model.law.MarkovChain;
 import ens.smartcity.model.law.RandomValues;
 import ens.smartcity.model.law.RandomValuesFromSet;
@@ -34,6 +35,10 @@ public class AddSensor extends JDialog {
     private JTextField textFieldSet;
     private JTextField textFieldMarkovPath;
     private JButton openButton;
+    private JTextField textFieldFunctionPath;
+    private JButton openFunction;
+    private JTextField textFieldInterpolationPath;
+    private JButton openInterpolation;
 
     private MainWindow parent;
 
@@ -84,6 +89,32 @@ public class AddSensor extends JDialog {
                 }
             }
         });
+        openFunction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
+
+                Integer ret = fileChooser.showOpenDialog(null);
+
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    textFieldFunctionPath.setText(fileChooser.getSelectedFile().getPath());
+                }
+            }
+        });
+        openInterpolation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
+
+                Integer ret = fileChooser.showOpenDialog(null);
+
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    textFieldInterpolationPath.setText(fileChooser.getSelectedFile().getPath());
+                }
+            }
+        });
     }
 
     private void onOK() {
@@ -99,6 +130,12 @@ public class AddSensor extends JDialog {
                 return;
         } else if (tabbedPane1.getSelectedIndex() == 2) {
             if (textFieldMarkovPath.getText().isEmpty())
+                return;
+        } else if (tabbedPane1.getSelectedIndex() == 3) {
+            if (textFieldFunctionPath.getText().isEmpty())
+                return;
+        } else if (tabbedPane1.getSelectedIndex() == 4) {
+            if (textFieldInterpolationPath.getText().isEmpty())
                 return;
         }
 
@@ -120,6 +157,10 @@ public class AddSensor extends JDialog {
             s.setLaw(new RandomValuesFromSet(set));
         } else if (tabbedPane1.getSelectedIndex() == 2) {
             s.setLaw(new MarkovChain(textFieldMarkovPath.getText()));
+        } else if (tabbedPane1.getSelectedIndex() == 3) {
+            s.setLaw(new Function(textFieldFunctionPath.getText()));
+        } else if (tabbedPane1.getSelectedIndex() == 4) {
+            s.setLaw(new Function(textFieldInterpolationPath.getText()));
         }
 
 
@@ -258,9 +299,39 @@ public class AddSensor extends JDialog {
         openButton = new JButton();
         openButton.setText("Open");
         panel7.add(openButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel8 = new JPanel();
+        panel8.setLayout(new GridLayoutManager(2, 3, new Insets(0, 0, 0, 0), -1, -1));
+        tabbedPane1.addTab("Function", panel8);
+        final Spacer spacer6 = new Spacer();
+        panel8.add(spacer6, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        textFieldFunctionPath = new JTextField();
+        textFieldFunctionPath.setText("Path");
+        textFieldFunctionPath.setToolTipText("val1;val2;...");
+        panel8.add(textFieldFunctionPath, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label9 = new JLabel();
-        label9.setText("Law");
-        panel3.add(label9, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        label9.setText("CSV File");
+        panel8.add(label9, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 16), null, 1, false));
+        openFunction = new JButton();
+        openFunction.setText("Open");
+        panel8.add(openFunction, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel9 = new JPanel();
+        panel9.setLayout(new GridLayoutManager(2, 3, new Insets(0, 0, 0, 0), -1, -1));
+        tabbedPane1.addTab("Interpolation", panel9);
+        final Spacer spacer7 = new Spacer();
+        panel9.add(spacer7, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        textFieldInterpolationPath = new JTextField();
+        textFieldInterpolationPath.setText("Path");
+        textFieldInterpolationPath.setToolTipText("val1;val2;...");
+        panel9.add(textFieldInterpolationPath, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JLabel label10 = new JLabel();
+        label10.setText("CSV File");
+        panel9.add(label10, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 16), null, 1, false));
+        openInterpolation = new JButton();
+        openInterpolation.setText("Open");
+        panel9.add(openInterpolation, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label11 = new JLabel();
+        label11.setText("Law");
+        panel3.add(label11, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
