@@ -3,8 +3,10 @@ package ens.smartcity.graphicaldsl;
 import com.intellij.uiDesigner.core.Spacer;
 import ens.smartcity.model.data.Data;
 import ens.smartcity.model.iofile.CSVMeasurement;
+import ens.smartcity.model.iofile.JSONMeasurement;
 import ens.smartcity.model.sensor.Mesurement;
 import ens.smartcity.model.sensor.Sensor;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -114,6 +116,22 @@ public class MainWindow {
             public void actionPerformed(ActionEvent actionEvent) {
                 RealTime rt = new RealTime(this2);
                 rt.afficher();
+            }
+        });
+        openJSONFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("JSON File", "json"));
+
+                Integer ret = fileChooser.showOpenDialog(null);
+
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    JSONMeasurement jsonFile = new JSONMeasurement(fileChooser.getSelectedFile().getPath());
+                    Data csvData = jsonFile.OpenFile();
+                    listDataModel.addElement(csvData.getName());
+                    dataList.add(csvData);
+                }
             }
         });
     }
