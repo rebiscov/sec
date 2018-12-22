@@ -15,7 +15,7 @@ public abstract class ReplayMeasurement {
     }
 
     public ReplayMeasurement(URL url) {
-        
+        // Not implemented
     }
 
     protected String FilePath;
@@ -26,6 +26,6 @@ public abstract class ReplayMeasurement {
     /**
      * @return
      */
-    public abstract Data OpenFile(Integer t, Integer v, Integer s, Boolean firstLineDifferent);
+    // public abstract Data OpenFile(Integer t, Integer v, Integer s, Boolean firstLineDifferent);
 
 }

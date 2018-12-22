@@ -68,4 +68,10 @@ public class Data {
     public String getName() {
         return Name;
     }
+
+    public void sendData() {
+        for (Mesurement m: mesurements) {
+            m.sendMeasurement();
+        }
+    }
 }

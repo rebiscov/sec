@@ -154,8 +154,10 @@ public class SimulateLaw extends JDialog {
         label2.setText("BeginDate");
         panel3.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         formattedTextFieldBegin = new JFormattedTextField();
+        formattedTextFieldBegin.setText("2010-01-01 00:00:01");
         panel3.add(formattedTextFieldBegin, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         formattedTextFieldEnd = new JFormattedTextField();
+        formattedTextFieldEnd.setText("2010-01-01 00:01:00");
         panel3.add(formattedTextFieldEnd, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("EndTime");

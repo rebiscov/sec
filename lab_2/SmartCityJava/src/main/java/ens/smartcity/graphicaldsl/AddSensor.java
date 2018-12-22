@@ -4,12 +4,17 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import ens.smartcity.Main;
+import ens.smartcity.model.data.Data;
+import ens.smartcity.model.iofile.CSVMeasurement;
+import ens.smartcity.model.law.MarkovChain;
 import ens.smartcity.model.law.RandomValues;
 import ens.smartcity.model.law.RandomValuesFromSet;
 import ens.smartcity.model.sensor.Location;
 import ens.smartcity.model.sensor.Sensor;
+import javafx.stage.FileChooser;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -27,6 +32,8 @@ public class AddSensor extends JDialog {
     private JTextField textFieldInf;
     private JTextField textFieldSup;
     private JTextField textFieldSet;
+    private JTextField textFieldMarkovPath;
+    private JButton openButton;
 
     private MainWindow parent;
 
@@ -64,6 +71,19 @@ public class AddSensor extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        openButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV File", "csv"));
+
+                Integer ret = fileChooser.showOpenDialog(null);
+
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    textFieldMarkovPath.setText(fileChooser.getSelectedFile().getPath());
+                }
+            }
+        });
     }
 
     private void onOK() {
@@ -74,9 +94,11 @@ public class AddSensor extends JDialog {
         if (tabbedPane1.getSelectedIndex() == 0) {
             if (textFieldInf.getText().isEmpty() || textFieldSup.getText().isEmpty())
                 return;
-        }
-        else if (tabbedPane1.getSelectedIndex() == 1) {
+        } else if (tabbedPane1.getSelectedIndex() == 1) {
             if (textFieldSet.getText().isEmpty())
+                return;
+        } else if (tabbedPane1.getSelectedIndex() == 2) {
+            if (textFieldMarkovPath.getText().isEmpty())
                 return;
         }
 
@@ -90,12 +112,14 @@ public class AddSensor extends JDialog {
         }
         //Correspond to RandomValuesFromSet
         else if (tabbedPane1.getSelectedIndex() == 1) {
-            String arraystring[] = textFieldSet.getText().split("[,]");
+            String arraystring[] = textFieldSet.getText().split("[;]");
             ArrayList<Object> set = new ArrayList<>();
             for (Object o : arraystring) {
                 set.add(o);
             }
             s.setLaw(new RandomValuesFromSet(set));
+        } else if (tabbedPane1.getSelectedIndex() == 2) {
+            s.setLaw(new MarkovChain(textFieldMarkovPath.getText()));
         }
 
 
@@ -219,9 +243,24 @@ public class AddSensor extends JDialog {
         final JLabel label7 = new JLabel();
         label7.setText("Set");
         panel6.add(label7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 16), null, 1, false));
+        final JPanel panel7 = new JPanel();
+        panel7.setLayout(new GridLayoutManager(2, 3, new Insets(0, 0, 0, 0), -1, -1));
+        tabbedPane1.addTab("Markov Chain", panel7);
+        final Spacer spacer5 = new Spacer();
+        panel7.add(spacer5, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        textFieldMarkovPath = new JTextField();
+        textFieldMarkovPath.setText("Path");
+        textFieldMarkovPath.setToolTipText("val1;val2;...");
+        panel7.add(textFieldMarkovPath, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label8 = new JLabel();
-        label8.setText("Law");
-        panel3.add(label8, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        label8.setText("CSV File");
+        panel7.add(label8, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(85, 16), null, 1, false));
+        openButton = new JButton();
+        openButton.setText("Open");
+        panel7.add(openButton, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label9 = new JLabel();
+        label9.setText("Law");
+        panel3.add(label9, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

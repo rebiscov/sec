@@ -90,7 +90,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="2010-01-01 00:00:01"/>
+            </properties>
           </component>
           <component id="64c75" class="javax.swing.JFormattedTextField" binding="formattedTextFieldEnd">
             <constraints>
@@ -98,7 +100,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value="2010-01-01 00:01:00"/>
+            </properties>
           </component>
           <component id="3b69" class="javax.swing.JLabel">
             <constraints>

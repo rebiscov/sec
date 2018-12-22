@@ -99,6 +99,23 @@ public class MainWindow {
                 ad.afficher();
             }
         });
+        sendDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                for (Data d : dataList) {
+                    if (d.getName() == listData.getSelectedValue().toString()) {
+                        d.sendData();
+                    }
+                }
+            }
+        });
+        realTimeSimulationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                RealTime rt = new RealTime(this2);
+                rt.afficher();
+            }
+        });
     }
 
     public JPanel getPanel1() {
